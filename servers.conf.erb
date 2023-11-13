@@ -1,0 +1,13 @@
+server {
+    server_name localhost;
+    listen <%= ENV['PORT'] %>;
+    charset utf-8;
+
+    location /repertoire {
+        rewrite ^/repertoire(.*)$ $1 break;
+        proxy_pass <%= ENV["API_V1_BACKEND"] %>;
+        proxy_redirect default;
+    }
+
+    return 502;
+}
