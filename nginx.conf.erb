@@ -5,17 +5,17 @@ if ($http_apikey != <%= ENV["API_KEY"] %>) {
   return 403;
 }
 location /api/v1 {
+  add_header X-debug-message "api/v1" always;
   rewrite ^/api/v1(.*)$ / break;
   proxy_pass <%= ENV["API_V1_BACKEND"] %>;
-  echo 'finally matched location /api/v1';
 }
 
 location /api/v2 {
+  add_header X-debug-message "api/v2" always;
   rewrite ^/api/v2(.*)$ / break;
   proxy_pass <%= ENV["API_V2_BACKEND"] %>;
-  echo 'finally matched location /api/v2';
 }
 
-echo 'No match';
+add_header X-debug-message "No match" always;
 
 return 503;
