@@ -7,3 +7,5 @@ location /api/v2 {
   rewrite ^/api/v2(.*)$ / break;
   proxy_pass <%= ENV["API_V2_BACKEND"] %>;
 }
+
+return 503;
