@@ -1,11 +1,17 @@
+if ($http_apikey = "") {
+  return 401;
+}
+if ($http_apikey != <%= ENV["API_KEY"] %>) {
+  return 403;
+}
 location /api/v1 {
-  proxy_pass <%= ENV["API_V1_BACKEND"] %>;
   rewrite ^/api/v1(.*)$ / break;
+  proxy_pass <%= ENV["API_V1_BACKEND"] %>;
 }
 
 location /api/v2 {
-  proxy_pass <%= ENV["API_V2_BACKEND"] %>;
   rewrite ^/api/v2(.*)$ / break;
+  proxy_pass <%= ENV["API_V2_BACKEND"] %>;
 }
 
 return 503;
