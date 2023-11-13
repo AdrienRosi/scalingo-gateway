@@ -1,15 +1,11 @@
-location ~ /api/v1 {
-  add_header X-debug-message "api/v1" always;
+location /api/v1 {
   rewrite ^(.*)$ /wiki$1 break;
   proxy_pass https://en.wikipedia.org;
 }
 
-location ~ /api/v2 {
-  add_header X-debug-message "api/v2" always;
+location /api/v2 {
   rewrite ^(.*)$ /wiki$1 break;
   proxy_pass https://en.wikipedia.org;
 }
-
-add_header X-debug-message "No match" always;
 
 return 503;
