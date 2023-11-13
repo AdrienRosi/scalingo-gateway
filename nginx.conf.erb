@@ -1,0 +1,14 @@
+if ($http_apikey = "") {
+  return 401;
+}
+if ($http_apikey != <%= ENV["API_KEY"] %>) {
+  return 403;
+}
+
+location /api/v1 {
+  proxy_pass <%= ENV["API_V1_BACKEND"] %>;
+}
+
+location /repertoire {
+  proxy_pass <%= ENV["API_V2_BACKEND"] %>;
+}
