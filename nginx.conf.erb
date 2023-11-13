@@ -1,11 +1,14 @@
+# https://test-gateway.osc-fr1.scalingo.io/api/v1 -> https://en.wikipedia.org/wiki/api/v1
 location /api/v1 {
   rewrite ^(.*)$ /wiki$1 break;
   proxy_pass https://en.wikipedia.org;
 }
 
+# https://test-gateway.osc-fr1.scalingo.io/api/v2 -> https://en.wikipedia.org/wiki/api/v2
 location /api/v2 {
   rewrite ^(.*)$ /wiki$1 break;
   proxy_pass https://en.wikipedia.org;
 }
 
+# Default
 return 503;
